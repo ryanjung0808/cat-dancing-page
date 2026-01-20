@@ -1,0 +1,460 @@
+/* ===== 컨테이너 스타일 ===== */
+.dancing-cat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.title {
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 3px 3px 0 #333, -1px -1px 0 #333;
+  letter-spacing: 3px;
+  animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ===== 스테이지 스타일 ===== */
+.stage {
+  position: relative;
+  width: 100%;
+  min-height: 350px;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* 디스코 볼 */
+.disco-ball {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #fff 0%, #ccc 50%, #999 100%);
+  border-radius: 50%;
+  animation: discoBall 4s linear infinite;
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.5),
+    inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.disco-ball::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 25px;
+  background: #666;
+}
+
+@keyframes discoBall {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(360deg); }
+}
+
+/* 바닥 조명 */
+.floor-lights {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20px;
+}
+
+.floor-lights span {
+  width: 40px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 0%, var(--light-color) 100%);
+  opacity: 0.6;
+  animation: lightPulse 1s ease-in-out infinite;
+}
+
+.floor-lights span:nth-child(1) { --light-color: #ff6b6b; animation-delay: 0s; }
+.floor-lights span:nth-child(2) { --light-color: #4ecdc4; animation-delay: 0.2s; }
+.floor-lights span:nth-child(3) { --light-color: #ffe66d; animation-delay: 0.4s; }
+.floor-lights span:nth-child(4) { --light-color: #95e1d3; animation-delay: 0.6s; }
+.floor-lights span:nth-child(5) { --light-color: #f38181; animation-delay: 0.8s; }
+
+@keyframes lightPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* ===== 고양이 래퍼 ===== */
+.cat-wrapper {
+  position: relative;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+  will-change: transform;
+}
+
+.cat-wrapper:hover {
+  filter: brightness(1.1);
+}
+
+.cat-image {
+  width: 200px;
+  height: 200px;
+  display: block;
+}
+
+/* 그림자 */
+.shadow {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  filter: blur(5px);
+}
+
+/* ===== 춤 애니메이션 - 통통 점프 ===== */
+.cat-wrapper.bounce {
+  animation: bounce 0.5s ease-in-out infinite;
+}
+
+.cat-wrapper.bounce .shadow {
+  animation: shadowBounce 0.5s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  30% {
+    transform: translateY(-50px) scale(0.95, 1.05);
+  }
+  50% {
+    transform: translateY(-60px) scale(1, 1);
+  }
+  70% {
+    transform: translateY(-50px) scale(1.05, 0.95);
+  }
+}
+
+@keyframes shadowBounce {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateX(-50%) scale(0.6);
+    opacity: 0.1;
+  }
+}
+
+/* ===== 춤 애니메이션 - 빙글빙글 ===== */
+.cat-wrapper.spin {
+  animation: spin 1s linear infinite;
+}
+
+.cat-wrapper.spin .shadow {
+  animation: shadowSpin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(90deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1);
+  }
+  75% {
+    transform: rotate(270deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes shadowSpin {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+  }
+  25%, 75% {
+    transform: translateX(-50%) scale(1.2);
+  }
+  50% {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* ===== 춤 애니메이션 - 흔들흔들 ===== */
+.cat-wrapper.shake {
+  animation: shake 0.6s ease-in-out infinite;
+}
+
+.cat-wrapper.shake .shadow {
+  animation: shadowShake 0.6s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  20% {
+    transform: translateX(-30px) rotate(-10deg);
+  }
+  40% {
+    transform: translateX(30px) rotate(10deg);
+  }
+  60% {
+    transform: translateX(-20px) rotate(-5deg);
+  }
+  80% {
+    transform: translateX(20px) rotate(5deg);
+  }
+}
+
+@keyframes shadowShake {
+  0%, 100% {
+    transform: translateX(-50%);
+  }
+  20%, 60% {
+    transform: translateX(-70%);
+  }
+  40%, 80% {
+    transform: translateX(-30%);
+  }
+}
+
+/* ===== 춤 애니메이션 - 디스코 ===== */
+.cat-wrapper.disco {
+  animation: disco 0.8s ease-in-out infinite;
+}
+
+.cat-wrapper.disco .shadow {
+  animation: shadowDisco 0.8s ease-in-out infinite;
+}
+
+@keyframes disco {
+  0%, 100% {
+    transform: translateY(0) rotate(-5deg) scale(1);
+  }
+  25% {
+    transform: translateY(-30px) rotate(5deg) scale(1.1);
+  }
+  50% {
+    transform: translateY(0) rotate(-5deg) scale(1);
+  }
+  75% {
+    transform: translateY(-40px) rotate(10deg) scale(0.95);
+  }
+}
+
+@keyframes shadowDisco {
+  0%, 50%, 100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.3;
+  }
+  25%, 75% {
+    transform: translateX(-50%) scale(0.7);
+    opacity: 0.15;
+  }
+}
+
+/* ===== 일시정지 상태 ===== */
+.cat-wrapper.paused {
+  animation: none !important;
+}
+
+.cat-wrapper.paused .shadow {
+  animation: none !important;
+}
+
+/* ===== 컨트롤 버튼 ===== */
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.play-button {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.play-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.play-button.playing {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+}
+
+.play-button.playing:hover {
+  box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+}
+
+/* ===== 댄스 스타일 버튼 ===== */
+.dance-styles {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.style-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  color: #fff;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.style-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+}
+
+.style-button.active {
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.style-button .icon {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.style-button .name {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ===== 힌트 텍스트 ===== */
+.hint {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* ===== 반응형 디자인 ===== */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .stage {
+    min-height: 300px;
+  }
+
+  .cat-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .disco-ball {
+    width: 35px;
+    height: 35px;
+  }
+
+  .floor-lights span {
+    width: 25px;
+  }
+
+  .play-button {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+
+  .style-button {
+    padding: 10px 14px;
+  }
+
+  .style-button .icon {
+    font-size: 1.2rem;
+  }
+
+  .style-button .name {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dancing-cat-container {
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+  }
+
+  .stage {
+    min-height: 250px;
+    border-radius: 15px;
+  }
+
+  .cat-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .shadow {
+    width: 80px;
+  }
+
+  .dance-styles {
+    gap: 8px;
+  }
+
+  .style-button {
+    padding: 8px 12px;
+  }
+}
+
+/* ===== 접근성 - 움직임 감소 선호 ===== */
+@media (prefers-reduced-motion: reduce) {
+  .cat-wrapper,
+  .cat-wrapper.bounce,
+  .cat-wrapper.spin,
+  .cat-wrapper.shake,
+  .cat-wrapper.disco,
+  .cat-wrapper .shadow,
+  .title,
+  .disco-ball,
+  .floor-lights span {
+    animation: none !important;
+  }
+}
